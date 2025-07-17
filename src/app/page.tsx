@@ -70,13 +70,15 @@ export default function Home() {
       </div>
 
       {/* Centered content */}
-      <main className="flex flex-col items-center justify-center flex-1 text-center px-4">
-        <h1 className="text-6xl font-normal mb-4">SyncSyllabus</h1>
-        <p className="text-xl mb-2">The Fastest Way to Sync Course Dates to Your Calendar</p>
-        <p className="text-sm mb-12">Drag & Drop Your .pdf or .docx or .txt File To Begin</p>
+      <main className="flex flex-col items-center justify-center flex-1 text-center px-4 mt-16">
+        <h1 className="text-8xl font-normal mb-2">SyncSyllabus</h1>
+        <div className="h-6" />
+        <p className="text-base mb-2">The Fastest Way to Sync Course Dates to Your Calendar</p>
+        <div className="h-6" />
+        <p className="text-sm mb-8">Drag & Drop Your .pdf or .docx or .txt File To Begin</p>
         {/* Upload area */}
         <div
-          className={`mb-4 w-40 h-40 flex flex-col items-center justify-center border-2 border-dashed rounded-xl cursor-pointer transition-colors ${dragActive ? "border-blue-500 bg-blue-50" : "border-gray-300 bg-white"}`}
+          className={`mb-4 w-40 h-40 flex flex-col items-center justify-center rounded-xl cursor-pointer transition-colors bg-white`}
           onClick={() => inputRef.current?.click()}
           onDragEnter={handleDrag}
           onDragOver={handleDrag}
@@ -86,11 +88,10 @@ export default function Home() {
           <Image
             src="/upload.png"
             alt="Upload icon"
-            width={64}
-            height={64}
+            width={96}
+            height={96}
             priority
           />
-          <span className="mt-2 text-sm">Click or Drag & Drop</span>
           <input
             ref={inputRef}
             type="file"
