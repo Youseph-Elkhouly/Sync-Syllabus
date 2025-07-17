@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useRef, useState, useCallback } from "react";
-import { IncomingForm } from 'formidable';
 
 export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -31,38 +30,24 @@ export default function Home() {
   const handleFile = async (file: File) => {
     setUploading(true);
     setMessage(null);
-    const form = new IncomingForm();
-    form.parse(file, (err, fields, files) => {
-      if (err) {
-        setMessage("Upload failed.");
-        setUploading(false);
-        return;
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res = await fetch("/api/upload-syllabus", {
+        method: "POST",
+        body: formData,
+      });
+      if (res.ok) {
+        setMessage("Upload successful!");
+      } else {
+        const data = await res.json();
+        setMessage(data.error || "Upload failed.");
       }
-      const uploadedFile = files.file;
-      if (!uploadedFile) {
-        setMessage("No file selected.");
-        setUploading(false);
-        return;
-      }
-      const formData = new FormData();
-      formData.append("file", uploadedFile);
-      try {
-        const res = await fetch("/api/upload-syllabus", {
-          method: "POST",
-          body: formData,
-        });
-        if (res.ok) {
-          setMessage("Upload successful!");
-        } else {
-          const data = await res.json();
-          setMessage(data.error || "Upload failed.");
-        }
-      } catch (err) {
-        setMessage("Upload failed.");
-      } finally {
-        setUploading(false);
-      }
-    });
+    } catch (err) {
+      setMessage("Upload failed.");
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
