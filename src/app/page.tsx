@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useRef, useState, useCallback } from "react";
+import Link from "next/link";
 
 export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -67,6 +68,16 @@ export default function Home() {
           height={80}
           priority
         />
+      </div>
+
+      {/* Top-right navigation */}
+      <div className="absolute top-8 right-8">
+        <Link 
+          href="/manage"
+          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Manage Courses
+        </Link>
       </div>
 
       {/* Centered content */}
